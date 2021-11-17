@@ -1,0 +1,41 @@
+.Floor {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  border: 1px solid #333;
+  height: 200px;
+  padding: 10px;
+}
+
+.Floor__number {
+  border: 1px solid #ada5a5;
+  margin: 15px;
+  height: 50px;
+  width: 40px;
+  text-align: center;
+  background-color: #f3f1f1;
+}
+
+.Floor__number p {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.Elevator {
+  position: relative;
+}
+
+.Elevator img {
+  height: 150px;
+}
+
+.Elevator__button {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0 10px;
+  width: 14px;
+  height: 20px;
+  background: linear-gradient(to right, #e7e7e7, #979797);
+  text-align: center;
+}

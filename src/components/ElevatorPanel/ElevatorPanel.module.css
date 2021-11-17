@@ -1,0 +1,22 @@
+.ElevatorPanel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 10px;
+  background: linear-gradient(to right, #e7e7e7, #979797);
+  width: 100px;
+  height: 150px;
+  background-color: #fff;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.ElevatorPanel__floor {
+  text-align: center;
+}
+
+.ElevatorPanel__floor p {
+  margin: 0;
+  font-size: 10px;
+}

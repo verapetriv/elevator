@@ -1,0 +1,12 @@
+.CallButton {
+    width: 6px;
+    height: 6px;
+    padding: 0;
+    border: 1px solid #eeedef;
+    border-radius: 100%;
+    background-color: #cfcece;
+}
+
+.CallButton__active {
+    border-color: #ee4e4ebd;
+}
