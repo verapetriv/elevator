@@ -6,10 +6,9 @@ function ElevatorPanel({ floors, onButtonClick, expectForElevator }) {
   return (
     <div className={style.ElevatorPanel}>
       {floors.map((floor) => (
-        <div className={style.ElevatorPanel__floor}>
+        <div className={style.ElevatorPanel__floor} key={floor}>
           <p>{floor}</p>
           <CallButton
-            key={floor}
             floor={floor}
             expectForElevator={expectForElevator}
             onButtonClick={onButtonClick}
