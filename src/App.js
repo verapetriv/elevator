@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import style from "./App.module.css";
 import Floor from "./components/Floor";
 import ElevatorPanel from "./components/ElevatorPanel";
@@ -42,7 +42,7 @@ export default function App() {
     }
   };
 
-  const onButtonClick = (newFloor) => {
+  const onButtonClick = useCallback((newFloor) => {
     if (
       expectForElevator.includes(newFloor) ||
       elevatorOnTheFloor === newFloor
@@ -53,7 +53,7 @@ export default function App() {
       ...prevSetExpectForElevator,
       newFloor,
     ]);
-  };
+  }, [elevatorOnTheFloor, expectForElevator]);
 
   const elevatorGetUp = () => {
     setElevatorInTransitId(
