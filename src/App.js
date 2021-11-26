@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import React, { useState, useEffect, useCallback } from "react";
-=======
-import React from "react";
->>>>>>> 715f389 (broke2)
 import style from "./App.module.css";
 import Floor from "./components/Floor";
 import ElevatorPanel from "./components/ElevatorPanel";
@@ -10,7 +6,6 @@ import ElevatorPanel from "./components/ElevatorPanel";
 const floors = Array.from({ length: 9 }, (_, i) => i + 1);
 const reversedFloors = floors.slice().reverse();
 
-<<<<<<< HEAD
 export default function App() {
   const [elevatorOnTheFloor, setElevatorOnTheFloor] = useState(1);
   const [isOpenDoor, setIsOpenDoor] = useState(true);
@@ -47,18 +42,21 @@ export default function App() {
     }
   };
 
-  const onButtonClick = useCallback((newFloor) => {
-    if (
-      expectForElevator.includes(newFloor) ||
-      elevatorOnTheFloor === newFloor
-    ) {
-      return;
-    }
-    setExpectForElevator((prevSetExpectForElevator) => [
-      ...prevSetExpectForElevator,
-      newFloor,
-    ]);
-  }, [elevatorOnTheFloor, expectForElevator]);
+  const onButtonClick = useCallback(
+    (newFloor) => {
+      if (
+        expectForElevator.includes(newFloor) ||
+        elevatorOnTheFloor === newFloor
+      ) {
+        return;
+      }
+      setExpectForElevator((prevSetExpectForElevator) => [
+        ...prevSetExpectForElevator,
+        newFloor,
+      ]);
+    },
+    [elevatorOnTheFloor, expectForElevator]
+  );
 
   const elevatorGetUp = () => {
     setElevatorInTransitId(
@@ -103,19 +101,10 @@ export default function App() {
         />
       ))}
       <ElevatorPanel
-=======
-const App = () => (
-  <div className={style.App}>
-    {reversedFloors.map((floor) => (
-      <Floor key={floor} floor={floor} floors={floors} />
-    ))}
-    {/* <ElevatorPanel
->>>>>>> 715f389 (broke2)
         floors={floors}
         onButtonClick={onButtonClick}
         expectForElevator={expectForElevator}
-      /> */}
-  </div>
-);
-
-export default App;
+      />
+    </div>
+  );
+}
