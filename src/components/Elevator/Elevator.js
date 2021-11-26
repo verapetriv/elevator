@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
-import style from "./Elevator.js";
+import React, { useState, useEffect, useCallback } from "react";
 import Floor from "../Floor";
 import ElevatorPanel from "../ElevatorPanel";
 
-export default function Elevator({ floors, reversedFloors }) {
+const floors = Array.from({ length: 9 }, (_, i) => i + 1);
+const reversedFloors = floors.slice().reverse();
+
+export default function Elevator() {
   const [elevatorOnTheFloor, setElevatorOnTheFloor] = useState(1);
   const [isOpenDoor, setIsOpenDoor] = useState(true);
   const [expectForElevator, setExpectForElevator] = useState([]);
@@ -20,8 +22,20 @@ export default function Elevator({ floors, reversedFloors }) {
   }, [expectForElevator]);
 
   useEffect(() => {
+    if (expectForElevator.length === 0) {
+      return;
+    }
+
+    if (!elevatorInTransitId) {
+      callElevator(expectForElevator[0]);
+    }
+  }, [expectForElevator]);
+
+  useEffect(() => {
     if (expectForElevator.includes(elevatorOnTheFloor)) {
+      console.log(elevatorInTransitId);
       clearInterval(elevatorInTransitId);
+      console.log(elevatorInTransitId);
       setElevatorInTransitId(null);
       elevatorArrived();
     }
@@ -39,18 +53,21 @@ export default function Elevator({ floors, reversedFloors }) {
     }
   };
 
-  const onButtonClick = (newFloor) => {
-    if (
-      expectForElevator.includes(newFloor) ||
-      elevatorOnTheFloor === newFloor
-    ) {
-      return;
-    }
-    setExpectForElevator((prevSetExpectForElevator) => [
-      ...prevSetExpectForElevator,
-      newFloor,
-    ]);
-  };
+  const onButtonClick = useCallback(
+    (newFloor) => {
+      if (
+        expectForElevator.includes(newFloor) ||
+        elevatorOnTheFloor === newFloor
+      ) {
+        return;
+      }
+      setExpectForElevator((prevSetExpectForElevator) => [
+        ...prevSetExpectForElevator,
+        newFloor,
+      ]);
+    },
+    [elevatorOnTheFloor, expectForElevator]
+  );
 
   const elevatorGetUp = () => {
     setElevatorInTransitId(
@@ -58,7 +75,7 @@ export default function Elevator({ floors, reversedFloors }) {
         setElevatorOnTheFloor(
           (prevSetElevatorOnTheFloor) => prevSetElevatorOnTheFloor + 1
         );
-        console.log("up");
+        console.log('up');
       }, 1000)
     );
   };
@@ -69,16 +86,13 @@ export default function Elevator({ floors, reversedFloors }) {
         setElevatorOnTheFloor(
           (prevSetElevatorOnTheFloor) => prevSetElevatorOnTheFloor - 1
         );
-        console.log("down");
       }, 1000)
     );
   };
 
   const elevatorArrived = () => {
     setIsOpenDoor(true);
-    // setHaltOnFloor(true);
     setTimeout(() => {
-      // setHaltOnFloor(false);
       setExpectForElevator((prevSetExpectForElevator) =>
         prevSetExpectForElevator.filter((floor) => floor !== elevatorOnTheFloor)
       );
@@ -86,7 +100,7 @@ export default function Elevator({ floors, reversedFloors }) {
   };
 
   return (
-    <div className={style.Elevator}>
+    <div>
       {reversedFloors.map((floor) => (
         <Floor
           key={floor}
@@ -98,11 +112,11 @@ export default function Elevator({ floors, reversedFloors }) {
           expectForElevator={expectForElevator}
         />
       ))}
-      {/* <ElevatorPanel
+      <ElevatorPanel
         floors={floors}
         onButtonClick={onButtonClick}
         expectForElevator={expectForElevator}
-      /> */}
+      />
     </div>
   );
 }
