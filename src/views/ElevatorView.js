@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
-import Floor from "../Floor";
-import ElevatorPanel from "../ElevatorPanel";
+import Floor from "../components/Floor";
+import ElevatorPanel from "../components/ElevatorPanel";
 
 const floors = Array.from({ length: 9 }, (_, i) => i + 1);
 const reversedFloors = floors.slice().reverse();
 
-export default function Elevator() {
+function ElevatorView() {
   const [elevatorOnTheFloor, setElevatorOnTheFloor] = useState(1);
   const [isOpenDoor, setIsOpenDoor] = useState(true);
   const [expectForElevator, setExpectForElevator] = useState([]);
@@ -22,21 +22,10 @@ export default function Elevator() {
   }, [expectForElevator]);
 
   useEffect(() => {
-    if (expectForElevator.length === 0) {
-      return;
-    }
-
-    if (!elevatorInTransitId) {
-      callElevator(expectForElevator[0]);
-    }
-  }, [expectForElevator]);
-
-  useEffect(() => {
     if (expectForElevator.includes(elevatorOnTheFloor)) {
-      console.log(elevatorInTransitId);
       clearInterval(elevatorInTransitId);
-      console.log(elevatorInTransitId);
       setElevatorInTransitId(null);
+
       elevatorArrived();
     }
   }, [elevatorOnTheFloor]);
@@ -75,7 +64,6 @@ export default function Elevator() {
         setElevatorOnTheFloor(
           (prevSetElevatorOnTheFloor) => prevSetElevatorOnTheFloor + 1
         );
-        console.log('up');
       }, 1000)
     );
   };
@@ -100,7 +88,7 @@ export default function Elevator() {
   };
 
   return (
-    <div>
+    <>
       {reversedFloors.map((floor) => (
         <Floor
           key={floor}
@@ -117,6 +105,8 @@ export default function Elevator() {
         onButtonClick={onButtonClick}
         expectForElevator={expectForElevator}
       />
-    </div>
+    </>
   );
 }
+
+export default ElevatorView;

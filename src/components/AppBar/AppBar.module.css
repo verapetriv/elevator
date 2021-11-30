@@ -1,0 +1,25 @@
+.AppBar {
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    background-color: #fbf7f7;
+    margin: 0;
+    padding: 5px;
+}
+
+.AppBar__item {
+    display: block;
+    font-size: 16px;
+    margin-right: 20px;
+    text-decoration: none;
+    color: rgb(68, 68, 68);
+}
+
+.AppBar__item:hover {
+    font-size: 18px;
+}
+
+.AppBar__item_active {
+    color: rgb(39, 39, 39);
+}
