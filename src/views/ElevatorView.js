@@ -1,15 +1,25 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { elevatorSelectors, elevatorActions } from "../redux/elevator";
+
 import Floor from "../components/Floor";
 import ElevatorPanel from "../components/ElevatorPanel";
 
-const floors = Array.from({ length: 9 }, (_, i) => i + 1);
-const reversedFloors = floors.slice().reverse();
+export default function ElevatorView() {
+  const dispatch = useDispatch();
 
-function ElevatorView() {
-  const [elevatorOnTheFloor, setElevatorOnTheFloor] = useState(1);
-  const [isOpenDoor, setIsOpenDoor] = useState(true);
-  const [expectForElevator, setExpectForElevator] = useState([]);
-  const [elevatorInTransitId, setElevatorInTransitId] = useState(null);
+  const reversedFloors = useSelector(elevatorSelectors.getReversedFloors);
+  const elevatorOnTheFloor = useSelector(
+    elevatorSelectors.getElevatorOnTheFloor
+  );
+  const expectForElevator = useSelector(elevatorSelectors.getExpectForElevator);
+  const elevatorInTransitId = useSelector(
+    elevatorSelectors.getlevatorInTransitId
+  );
+
+  useEffect(() => {
+    dispatch(elevatorActions.changeQuantityFloors(9));
+  }, [dispatch]);
 
   useEffect(() => {
     if (expectForElevator.length === 0) {
@@ -24,14 +34,14 @@ function ElevatorView() {
   useEffect(() => {
     if (expectForElevator.includes(elevatorOnTheFloor)) {
       clearInterval(elevatorInTransitId);
-      setElevatorInTransitId(null);
+      dispatch(elevatorActions.clearElevatorInTransitId());
 
       elevatorArrived();
     }
   }, [elevatorOnTheFloor]);
 
   const callElevator = (newFloor) => {
-    setIsOpenDoor(false);
+    dispatch(elevatorActions.closeDoor());
 
     if (elevatorOnTheFloor > newFloor) {
       elevatorGetDown();
@@ -42,71 +52,35 @@ function ElevatorView() {
     }
   };
 
-  const onButtonClick = useCallback(
-    (newFloor) => {
-      if (
-        expectForElevator.includes(newFloor) ||
-        elevatorOnTheFloor === newFloor
-      ) {
-        return;
-      }
-      setExpectForElevator((prevSetExpectForElevator) => [
-        ...prevSetExpectForElevator,
-        newFloor,
-      ]);
-    },
-    [elevatorOnTheFloor, expectForElevator]
-  );
-
   const elevatorGetUp = () => {
-    setElevatorInTransitId(
-      setInterval(() => {
-        setElevatorOnTheFloor(
-          (prevSetElevatorOnTheFloor) => prevSetElevatorOnTheFloor + 1
-        );
-      }, 1000)
+    const elevatorInTransitId = setInterval(
+      () => dispatch(elevatorActions.incrementFloor()),
+      1000
     );
+    dispatch(elevatorActions.addElevatorInTransitId(elevatorInTransitId));
   };
 
   const elevatorGetDown = () => {
-    setElevatorInTransitId(
-      setInterval(() => {
-        setElevatorOnTheFloor(
-          (prevSetElevatorOnTheFloor) => prevSetElevatorOnTheFloor - 1
-        );
-      }, 1000)
+    const elevatorInTransitId = setInterval(
+      () => dispatch(elevatorActions.decrementFloor()),
+      1000
     );
+    dispatch(elevatorActions.addElevatorInTransitId(elevatorInTransitId));
   };
 
   const elevatorArrived = () => {
-    setIsOpenDoor(true);
+    dispatch(elevatorActions.openDoor());
     setTimeout(() => {
-      setExpectForElevator((prevSetExpectForElevator) =>
-        prevSetExpectForElevator.filter((floor) => floor !== elevatorOnTheFloor)
-      );
+      dispatch(elevatorActions.deleteExpectForElevator(elevatorOnTheFloor));
     }, 1000);
   };
 
   return (
     <>
       {reversedFloors.map((floor) => (
-        <Floor
-          key={floor}
-          floor={floor}
-          floors={floors}
-          onButtonClick={onButtonClick}
-          elevatorOnTheFloor={elevatorOnTheFloor}
-          isOpenDoor={isOpenDoor}
-          expectForElevator={expectForElevator}
-        />
+        <Floor key={floor} floor={floor} />
       ))}
-      <ElevatorPanel
-        floors={floors}
-        onButtonClick={onButtonClick}
-        expectForElevator={expectForElevator}
-      />
+      <ElevatorPanel />
     </>
   );
 }
-
-export default ElevatorView;
