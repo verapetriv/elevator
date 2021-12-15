@@ -17,12 +17,3 @@ export const addElevatorInTransitId = createAction('elevator/addElevatorInTransi
 export const clearElevatorInTransitId = createAction('elevator/clearElevatorInTransitId');
 
 export const resetState = createAction('elevator/resetState');
-
-export const addElevatorOptions = createAction('createElevator/addElevetorOptions', ({quantityFloors, theme}) => ({
-    payload: {
-        quantityFloors,
-        theme,
-    }
-}));
-
-

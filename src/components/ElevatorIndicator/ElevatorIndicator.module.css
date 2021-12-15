@@ -5,8 +5,22 @@
     margin: 3px;
 }
 
-.Indicator__number {
-    font-size: 9px;
+.Indicator__lotFloors {
+    width: 100px;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 5px 2px;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.Indicator .Indicator__number {
+    font-size: 8px;
+    margin: 0;
+}
+
+.Indicator__lotFloors .Indicator__number {
+    font-size: 7px;
     margin: 0;
 }
 

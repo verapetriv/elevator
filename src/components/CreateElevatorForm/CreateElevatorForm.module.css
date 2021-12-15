@@ -11,49 +11,13 @@
   margin: 0;
 }
 
-.quantity {
+.text {
   text-align: center;
-  margin: 7px 0;
 }
-
-.quantity input {
-  margin: 5px;
+input {
+  display: block;
+  margin: 5px auto;
   border-color: rgb(223 223 223);
   background-color: #fbf7f7;
-  width: 45px;
   outline: none;
-}
-
-.theme {
-  text-align: center;
-}
-
-.theme p {
-  margin: 5px 0;
-}
-
-.theme input {
-  appearance: none;
-  border-radius: 50%;
-  border: 2px solid #8d8b8b;
-  transition: 0.2s all linear;
-  width: 10px;
-  height: 10px;
-  outline: none;
-  margin-right: 5px;
-}
-
-.theme input:checked {
-  border: 4px solid #8d8b8b;
-}
-
-.theme label {
-  margin-right: 7px;
-}
-
-.btn {
-  display: block;
-  margin: 0 auto;
-  margin-top: 20px;
-  background-color: #e7e7e7;
 }

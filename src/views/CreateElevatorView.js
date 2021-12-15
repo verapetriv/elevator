@@ -1,29 +1,19 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { elevatorSelectors } from "../redux/elevator";
+import React, { useState } from "react";
 
 import CreateElevatorForm from "../components/CreateElevatorForm";
 import Elevator from "../components/Elevator";
 
 function CreateElevatorView() {
-  const elevatorOptions = useSelector(elevatorSelectors.getElevatorOptions);
-  console.log(elevatorOptions);
+  const [quantityFloors, setQuantityFloors] = useState(null);
 
-  useEffect(() => {
-    if (elevatorOptions?.quantityFloors) {
-      console.log(elevatorOptions.quantityFloors);
-    }
-  });
+  const onInputChange = (e) => {
+    setQuantityFloors(e.currentTarget.value);
+  };
 
   return (
     <>
-      <CreateElevatorForm />
-      {elevatorOptions && (
-        <Elevator
-          quantityFloors={elevatorOptions.quantityFloors}
-          theme={elevatorOptions.theme}
-        />
-      )}
+      <CreateElevatorForm onInputChange={onInputChange} />
+      {quantityFloors && <Elevator quantityFloors={quantityFloors} />}
     </>
   );
 }

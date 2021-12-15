@@ -11,7 +11,7 @@ function ElevatorIndicator() {
   );
 
   return (
-    <div className={style.Indicator}>
+    <div className={`${floors.length > 15 ? style.Indicator__lotFloors : style.Indicator}`}>
       {floors.map((floor) => (
         <div key={floor}>
           <p className={style.Indicator__number}>{floor}</p>

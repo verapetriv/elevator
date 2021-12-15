@@ -10,7 +10,6 @@ import {
   deleteExpectForElevator,
   addElevatorInTransitId,
   clearElevatorInTransitId,
-  addElevatorOptions,
   resetState,
 } from "./elevator-actions";
 
@@ -44,9 +43,23 @@ const elevatorInTransitId = createReducer(null, {
   [resetState]: () => null,
 });
 
-const elevatorOptions = createReducer(null, {
-  [addElevatorOptions]: (_, { payload }) => payload,
-});
+// const defaultElevator = combineReducers({
+//   floors,
+//   elevatorOnTheFloor,
+//   isOpenDoor,
+//   expectForElevator,
+//   elevatorInTransitId,
+//   elevatorOptions,
+// });
+
+// const creatElevator = combineReducers({
+//   floors,
+//   elevatorOnTheFloor,
+//   isOpenDoor,
+//   expectForElevator,
+//   elevatorInTransitId,
+//   elevatorOptions,
+// });
 
 export default combineReducers({
   floors,
@@ -54,5 +67,4 @@ export default combineReducers({
   isOpenDoor,
   expectForElevator,
   elevatorInTransitId,
-  elevatorOptions,
 });

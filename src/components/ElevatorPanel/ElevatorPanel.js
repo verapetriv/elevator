@@ -12,7 +12,10 @@ function ElevatorPanel() {
     <div className={style.ElevatorPanel}>
       {floors.map((floor) => (
         <div className={style.ElevatorPanel__floor} key={floor}>
-          <p>{floor}</p>
+          <div className={style.number}>
+            <p>{floor}</p>
+          </div>
+
           <CallButton floor={floor} />
         </div>
       ))}

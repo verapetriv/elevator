@@ -8,6 +8,4 @@ export const getExpectForElevator = state => state.elevator.expectForElevator;
 
 export const getlevatorInTransitId = state => state.elevator.elevatorInTransitId;
 
-export const getElevatorOptions = state => state.elevator.elevatorOptions;
-
 export const getReversedFloors = state => getFloors(state).slice().reverse();

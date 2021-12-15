@@ -5,7 +5,7 @@ import { elevatorSelectors, elevatorActions } from "../../redux/elevator";
 import Floor from "../Floor";
 import ElevatorPanel from "../ElevatorPanel";
 
-export default function Elevator({ quantityFloors = 9, theme = "lightTheme" }) {
+export default function Elevator({ quantityFloors = 9 }) {
   const dispatch = useDispatch();
 
   const reversedFloors = useSelector(elevatorSelectors.getReversedFloors);
@@ -20,6 +20,7 @@ export default function Elevator({ quantityFloors = 9, theme = "lightTheme" }) {
   useEffect(() => {
     dispatch(elevatorActions.resetState());
     dispatch(elevatorActions.changeQuantityFloors(quantityFloors));
+    return clearInterval(elevatorInTransitId);
   }, [dispatch, quantityFloors]);
 
   useEffect(() => {
