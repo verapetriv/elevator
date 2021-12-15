@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, Component } from "react";
+import React, { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import "./App.module.css";
@@ -14,23 +14,21 @@ const CreateElevatorView = lazy(() =>
   )
 );
 
-class App extends Component {
-  componentDidMount() {
-    console.log(ElevatorView);
-  }
-  render() {
-    return (
-      <>
-        <AppBar />
-        <Suspense fallback={<div>Loading...</div>}>
+function App() {
+  return (
+    <>
+      <AppBar />
+      <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route exact path={routes.elevator} element={<ElevatorView />} />
-          <Route path={routes.createElevator} element={<CreateElevatorView />} />
+          <Route
+            path={routes.createElevator}
+            element={<CreateElevatorView />}
+          />
         </Routes>
-        </Suspense>
-      </>
-    );
-  }
+      </Suspense>
+    </>
+  );
 }
 
 export default App;
