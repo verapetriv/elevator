@@ -43,24 +43,6 @@ const elevatorInTransitId = createReducer(null, {
   [resetState]: () => null,
 });
 
-// const defaultElevator = combineReducers({
-//   floors,
-//   elevatorOnTheFloor,
-//   isOpenDoor,
-//   expectForElevator,
-//   elevatorInTransitId,
-//   elevatorOptions,
-// });
-
-// const creatElevator = combineReducers({
-//   floors,
-//   elevatorOnTheFloor,
-//   isOpenDoor,
-//   expectForElevator,
-//   elevatorInTransitId,
-//   elevatorOptions,
-// });
-
 export default combineReducers({
   floors,
   elevatorOnTheFloor,
